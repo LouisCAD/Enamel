@@ -21,15 +21,13 @@ object KeyFrameAnimationExample {
         val x: MutableList<FrameProperty<Float>> = mutableListOf(),
         val y: MutableList<FrameProperty<Float>> = mutableListOf(),
         val alpha: MutableList<FrameProperty<Float>> = mutableListOf(),
-        val color: MutableList<FrameProperty<Int>> = mutableListOf(),
-        val color2: MutableList<FrameProperty<Int>> = mutableListOf()
+        val color: MutableList<FrameProperty<Int>> = mutableListOf()
     ) : Normalisable {
         override var propertyList: List<List<FrameProperty<*>>> = mutableListOf(
             x,
             y,
             alpha,
-            color,
-            color2
+            color
         )
 
     }
@@ -42,7 +40,6 @@ object KeyFrameAnimationExample {
                 y set 0.percent
                 alpha set 100.percent
                 color set red
-                color2 set black
             }
 
             frame {
@@ -55,7 +52,7 @@ object KeyFrameAnimationExample {
                 color goto green
                 x goto 50.percent by EasingInterpolators.deccelerate()
                 y goto 50.percent by EasingInterpolators.deccelerate(3)
-                alpha lockSince last(alpha)
+                alpha lockSince last(alpha) // keep last value up to this frame
             }
 
             frameAfter(.5) {

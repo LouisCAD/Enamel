@@ -47,6 +47,10 @@ class KeyFrameDemo : KotlinPApplet() {
             position.toCircle(20).draw()
         }
 
+        if(progress > 1f ){
+            background(0)
+        }
+
 
     }
 
