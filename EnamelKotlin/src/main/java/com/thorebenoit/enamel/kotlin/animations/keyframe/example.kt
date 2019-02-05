@@ -4,7 +4,8 @@ import com.thorebenoit.enamel.kotlin.animations.EasingInterpolators
 import com.thorebenoit.enamel.kotlin.core.i
 import com.thorebenoit.enamel.kotlin.core.percent
 
-private object Example {
+
+object KeyFrameAnimationExample {
 
     private val red = 0xFF_FF_00_00.i
     private val black = 0xFF_00_00_00.i
@@ -33,7 +34,7 @@ private object Example {
 
     }
 
-    val keyFrameAnim = FrameAnimationBuilder.createNormalised<AlphaXY> {
+    val keyFrameAnim : AlphaXY = FrameAnimationBuilder.createNormalised<AlphaXY> {
         with(it) {
 
             frame {
@@ -79,4 +80,5 @@ private object Example {
 
         }
     }
+
 }
