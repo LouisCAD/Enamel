@@ -1,6 +1,6 @@
 package com.thorebenoit.enamel.kotlin.geometry.figures
 
-import com.thorebenoit.enamel.kotlin.geometry.GeomertyBufferProvider
+import com.thorebenoit.enamel.kotlin.geometry.GeometryBufferProvider
 import com.thorebenoit.enamel.kotlin.geometry.alignement.EAlignment
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EOffset
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EPoint
@@ -15,36 +15,21 @@ class ERectGroup(val rects: List<ERect>, sizeBuffer: ESize, originBuffer: EPoint
 
 
     init {
-        // TODO Refactor classes so that GeomertyBufferProvider returns TempPoint, TempRect etc
-        // PointType -> TempPoint -> Point
-        /*
-        That way, ImmutablePoint only has a set of getters, TempPoint has everything but only Point is used in Rects, Circle, Etc
-         */
-        // TODO Dupplicate all of the modification functions like so :
-        /*
-        selfOffset
-        selfScale
-
-        selfInset
-
-        Self functions should be in point, other should be in immutable
-         */
-
-        val frameTmp = rects.union(GeomertyBufferProvider.rect())
+        val frameTmp = rects.union(GeometryBufferProvider.rect())
         size = frameTmp.size.copy(sizeBuffer)
         origin = frameTmp.origin.copy(originBuffer)
     }
 
     fun aligned(anchor: EPointType, position: EPointType) {
         val pointAtAnchor =
-            frame(GeomertyBufferProvider.rect()).pointAtAnchor(anchor, buffer = GeomertyBufferProvider.point())
+            frame(GeometryBufferProvider.rect()).pointAtAnchor(anchor, buffer = GeometryBufferProvider.point())
 
         val offsetX = position.x - pointAtAnchor.x
         val offsetY = position.y - pointAtAnchor.y
 
-        origin.offset(offsetX, offsetY, buffer = origin)
+        origin.selfOffset(offsetX, offsetY)
         // TODO remove this
-        rects.forEach { it.offset(offsetX,offsetY) }
+        rects.forEach { it.offset(offsetX, offsetY) }
     }
 }
 
@@ -61,7 +46,7 @@ fun List<ESize>.rectGroup(
     }
 
 
-    var prev = GeomertyBufferProvider.rect()
+    var prev = GeometryBufferProvider.rect()
     val rects = mapIndexed { i, size ->
         prev = prev.rectAlignedOutside(
             aligned = alignement,
