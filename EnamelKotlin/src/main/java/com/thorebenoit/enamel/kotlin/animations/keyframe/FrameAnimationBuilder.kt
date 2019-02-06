@@ -31,8 +31,6 @@ class FrameAnimationBuilder<T>(val data: T) {
         linearInterpolator
 
     companion object {
-        val ε = 0.001f
-
         inline fun <reified T> create(crossinline block: T.(FrameAnimationBuilder<T>) -> Unit) =
                 FrameAnimationBuilder<T>(T::class.java.newInstance()).build(block)
 
@@ -50,7 +48,7 @@ class FrameAnimationBuilder<T>(val data: T) {
     }
 
     inline fun initialFrame(crossinline block: FrameBuilder.() -> Unit) {
-        val frameBuilder = FrameBuilder(-ε)
+        val frameBuilder = FrameBuilder(-com.thorebenoit.enamel.kotlin.core.œ)
         frameBuilder.block()
         frameBuilder.build()
     }
