@@ -1,6 +1,7 @@
 package com.thorebenoit.enamel.kotlin.animations.keyframe
 
 import com.thorebenoit.enamel.kotlin.animations.EasingInterpolators
+import com.thorebenoit.enamel.kotlin.animations.bounceInterpolator
 import com.thorebenoit.enamel.kotlin.core.i
 import com.thorebenoit.enamel.kotlin.core.percent
 
@@ -20,25 +21,26 @@ object KeyFrameAnimationExample {
     data class AlphaXY(
         val x: MutableList<FrameProperty<Float>> = mutableListOf(),
         val y: MutableList<FrameProperty<Float>> = mutableListOf(),
-        val alpha: MutableList<FrameProperty<Float>> = mutableListOf(),
+        val radius: MutableList<FrameProperty<Float>> = mutableListOf(),
         val color: MutableList<FrameProperty<Int>> = mutableListOf()
     ) : Normalisable {
         override var propertyList: List<List<FrameProperty<*>>> = mutableListOf(
             x,
             y,
-            alpha,
+            radius,
             color
         )
 
     }
 
-    val keyFrameAnim : AlphaXY = FrameAnimationBuilder.createNormalised<AlphaXY> {
-        with(it) {
+    val keyFrameAnim: AlphaXY = FrameAnimationBuilder.createNormalised<AlphaXY> {
+
+        with(it) {// Avoids it.frame on every line that uses frame
 
             frame {
                 x set 0.percent
                 y set 0.percent
-                alpha set 100.percent
+                radius set 25f
                 color set red
             }
 
@@ -52,17 +54,19 @@ object KeyFrameAnimationExample {
                 color goto green
                 x goto 50.percent by EasingInterpolators.deccelerate()
                 y goto 50.percent by EasingInterpolators.deccelerate(3)
-                alpha lockSince last(alpha) // keep last value up to this frame
+                radius lockSince last(radius) // keep last value up to this frame
             }
 
             frameAfter(.5) {
                 color goto blue
+                radius goto (last(radius)?.data ?: 25f) / 2f
             }
 
             frame {
                 color goto yellow
                 x goto 0.percent by EasingInterpolators.quadInOut
                 y goto 100.percent by EasingInterpolators.quadInOut
+                radius goto 50f by bounceInterpolator
             }
 
             frame {
