@@ -33,6 +33,10 @@ class KeyFrameDemo : KotlinPApplet() {
     }
 
 
+    override fun setup() {
+        frame.isResizable = true
+    }
+
     val animator = TimeProgressAnimator().apply { duration = 10_000L }
     val position = EPoint()
     override fun draw() {

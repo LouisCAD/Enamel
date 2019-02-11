@@ -3,10 +3,12 @@ package com.thorebenoit.enamel.kotlin.geometry.figures
 import com.thorebenoit.enamel.kotlin.core.Resetable
 import com.thorebenoit.enamel.kotlin.core.d
 import com.thorebenoit.enamel.kotlin.core.f
+import com.thorebenoit.enamel.kotlin.geometry.GeometryBufferProvider
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EPoint
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EPointType
 import com.thorebenoit.enamel.kotlin.geometry.alignement.*
 import com.thorebenoit.enamel.kotlin.geometry.allocateDebugMessage
+import com.thorebenoit.enamel.kotlin.geometry.primitives.EOffset
 
 /*
 This class should be the example to follow in order to implement mutability
@@ -31,6 +33,7 @@ open class ERectType(
 
     fun toMutable(buffer: ERect) = buffer.set(origin.toMutable(buffer.origin), size.toMutable())
     fun toImmutable() = ERectType(origin.toImmutable(), size.toImmutable())
+    fun copy(buffer: ERect = ERect()) = ERect(origin.copy(buffer.origin), size.copy(buffer.size))
 
     val height get() = size.height
     val width get() = size.width
@@ -203,19 +206,39 @@ open class ERectType(
     fun expand(p: EPointType, buffer: ERect = ERect(this)) = expand(p.x, p.y, buffer)
     fun expand(x: Number = 0f, y: Number = 0f, buffer: ERect = ERect(this)) = inset(-x.f, -y.f, buffer)
 
+    fun padding(padding: EOffset, buffer: ERect = ERect(this)): ERect {
+        buffer.left += padding.left
+        buffer.top += padding.top
+        buffer.bottom -= padding.bottom
+        buffer.right -= padding.right
+        return buffer
+    }
+
+    fun scaleAnchor(factor: Number, anchor: EPointType, buffer: ERect = ERect()) =
+        scaleRelative(factor, pointAtAnchor(anchor, GeometryBufferProvider.point()), buffer)
+
+    fun scaleRelative(factor: Number, point: EPointType, buffer: ERect = ERect()): ERect {
+        val factor = factor.f
+        val newX = origin.x + (point.x - origin.x) * (1f - factor)
+        val newY = origin.y + (point.y - origin.y) * (1f - factor)
+
+        buffer.origin.set(newX, newY)
+        buffer.size.width *= factor
+        buffer.size.height *= factor
+        return buffer
+    }
+
 
 }
 
 class ERect(override var origin: EPoint = EPoint(), override var size: ESize = ESize()) :
     ERectType(origin, size), Resetable {
 
-    constructor(other: ERectType) : this(other.origin.toMutable(), other.size.toMutable())
+    constructor(other: ERectType) : this(other.origin.copy(), other.size.copy())
 
     override fun reset() {
         origin.reset(); size.reset()
     }
-
-    fun copy(buffer: ERect = ERect()) = ERect(origin.copy(buffer.origin), size.copy(buffer.size))
 
     fun set(
         origin: EPointType = this.origin,
@@ -309,6 +332,12 @@ class ERect(override var origin: EPoint = EPoint(), override var size: ESize = E
     fun selfExpand(p: EPointType) = expand(p.x, p.y, this)
     fun selfExpand(x: Number = 0f, y: Number = 0f) = inset(-x.f, -y.f, this)
 
+    fun selfPadding(padding: EOffset) = padding(padding, this)
+
+
+    fun selfScaleAnchor(factor: Number, anchor: EPointType) = scaleAnchor(factor, anchor, this)
+
+    fun selfScaleRelative(factor: Number, point: EPointType) = scaleRelative(factor, point, this)
 
     override fun toString(): String {
         return "ERect(origin=$origin, size=$size)"
