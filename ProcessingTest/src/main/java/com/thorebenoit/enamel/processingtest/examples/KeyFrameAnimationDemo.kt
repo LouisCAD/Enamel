@@ -6,6 +6,7 @@ import com.thorebenoit.enamel.kotlin.animations.keyframe.animateColor
 import com.thorebenoit.enamel.kotlin.core.constrain
 import com.thorebenoit.enamel.kotlin.core.f
 import com.thorebenoit.enamel.kotlin.core.print
+import com.thorebenoit.enamel.kotlin.core.time.ETimerProgress
 import com.thorebenoit.enamel.kotlin.geometry.AllocationTracker
 import com.thorebenoit.enamel.kotlin.geometry.allocate
 import com.thorebenoit.enamel.kotlin.geometry.figures.size
@@ -37,7 +38,7 @@ class KeyFrameDemo : KotlinPApplet() {
         frame.isResizable = true
     }
 
-    val animator = TimeProgressAnimator().apply { duration = 10_000L }
+    val animator = ETimerProgress().apply { duration = 10_000L }
     val position = EPoint()
     override fun draw() {
 
@@ -72,32 +73,6 @@ class KeyFrameDemo : KotlinPApplet() {
         }
 
 
-    }
-
-
-}
-
-
-class TimeProgressAnimator {
-    private var startAt: Long = System.currentTimeMillis()
-
-    var duration = 1_000L
-        set(value) {
-            field = value
-            start()
-        }
-
-    val elapsed get() = System.currentTimeMillis() - startAt
-
-    var progress
-        get() = elapsed.f / duration.f
-        set(value) {
-            val targetElapsed = (duration * value).toLong()
-            startAt = System.currentTimeMillis() - targetElapsed
-        }
-
-    fun start() {
-        startAt = System.currentTimeMillis()
     }
 
 
