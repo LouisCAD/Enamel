@@ -2,8 +2,8 @@ package com.thorebenoit.enamel.kotlin.animations.keyframe
 
 import com.thorebenoit.enamel.kotlin.animations.EasingInterpolators
 import com.thorebenoit.enamel.kotlin.animations.bounceInterpolator
-import com.thorebenoit.enamel.kotlin.core.i
-import com.thorebenoit.enamel.kotlin.core.percent
+import com.thorebenoit.enamel.kotlin.core.math.i
+import com.thorebenoit.enamel.kotlin.core.math.percent
 
 
 object KeyFrameAnimationExample {

@@ -1,8 +1,8 @@
 package com.thorebenoit.enamel.kotlin.animations.keyframe
 
 import com.thorebenoit.enamel.kotlin.animations.*
-import com.thorebenoit.enamel.kotlin.core.Scale
-import com.thorebenoit.enamel.kotlin.core.f
+import com.thorebenoit.enamel.kotlin.core.math.Scale
+import com.thorebenoit.enamel.kotlin.core.math.f
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EAngle
 
 fun <T> MutableList<FrameProperty<T>>.normalized(over: Number = 1f): MutableList<FrameProperty<T>> {

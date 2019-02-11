@@ -1,6 +1,6 @@
 package com.thorebenoit.enamel.processingtest
 
-import com.thorebenoit.enamel.kotlin.core.f
+import com.thorebenoit.enamel.kotlin.core.math.f
 import com.thorebenoit.enamel.kotlin.geometry.figures.ESize
 import com.thorebenoit.enamel.kotlin.geometry.figures.ESizeImmutable
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EPoint

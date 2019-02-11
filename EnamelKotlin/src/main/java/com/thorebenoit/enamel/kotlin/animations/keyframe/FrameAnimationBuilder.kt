@@ -3,6 +3,7 @@ package com.thorebenoit.enamel.kotlin.animations.keyframe
 import com.thorebenoit.enamel.kotlin.animations.Interpolator
 import com.thorebenoit.enamel.kotlin.animations.endInterpolator
 import com.thorebenoit.enamel.kotlin.animations.linearInterpolator
+import com.thorebenoit.enamel.kotlin.core.math.œ
 
 interface Normalisable {
     val propertyList: List<List<FrameProperty<*>>>
@@ -48,7 +49,7 @@ class FrameAnimationBuilder<T>(val data: T) {
     }
 
     inline fun initialFrame(crossinline block: FrameBuilder.() -> Unit) {
-        val frameBuilder = FrameBuilder(-com.thorebenoit.enamel.kotlin.core.œ)
+        val frameBuilder = FrameBuilder(-œ)
         frameBuilder.block()
         frameBuilder.build()
     }

@@ -3,9 +3,9 @@ package com.thorebenoit.enamel.kotlin.animations.keyframe
 import com.thorebenoit.enamel.kotlin.animations.Interpolator
 import com.thorebenoit.enamel.kotlin.animations.linearInterpolator
 import com.thorebenoit.enamel.kotlin.core.ARGB_evaluate
-import com.thorebenoit.enamel.kotlin.core.Scale
-import com.thorebenoit.enamel.kotlin.core.f
-import com.thorebenoit.enamel.kotlin.core.i
+import com.thorebenoit.enamel.kotlin.core.math.Scale
+import com.thorebenoit.enamel.kotlin.core.math.f
+import com.thorebenoit.enamel.kotlin.core.math.i
 import com.thorebenoit.enamel.kotlin.geometry.primitives.EAngle
 import com.thorebenoit.enamel.kotlin.geometry.primitives.degrees
 

@@ -3,10 +3,9 @@ package com.thorebenoit.enamel.processingtest.examples
 import com.thorebenoit.enamel.kotlin.animations.keyframe.KeyFrameAnimationExample
 import com.thorebenoit.enamel.kotlin.animations.keyframe.animate
 import com.thorebenoit.enamel.kotlin.animations.keyframe.animateColor
-import com.thorebenoit.enamel.kotlin.core.constrain
-import com.thorebenoit.enamel.kotlin.core.f
+import com.thorebenoit.enamel.kotlin.core.math.f
 import com.thorebenoit.enamel.kotlin.core.print
-import com.thorebenoit.enamel.kotlin.core.time.ETimerProgress
+import com.thorebenoit.enamel.kotlin.core.time.ETimerAnimator
 import com.thorebenoit.enamel.kotlin.geometry.AllocationTracker
 import com.thorebenoit.enamel.kotlin.geometry.allocate
 import com.thorebenoit.enamel.kotlin.geometry.figures.size
@@ -38,7 +37,7 @@ class KeyFrameDemo : KotlinPApplet() {
         frame.isResizable = true
     }
 
-    val animator = ETimerProgress().apply { duration = 10_000L }
+    val animator = ETimerAnimator().apply { duration = 10_000L }
     val position = EPoint()
     override fun draw() {
 
